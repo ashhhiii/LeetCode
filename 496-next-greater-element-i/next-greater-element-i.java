@@ -1,30 +1,28 @@
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-         Map<Integer, Integer> nextGreaterMap = new HashMap<>();
-        // Stack to help find the next greater element
-        Stack<Integer> stack = new Stack<>();
         
-        // Iterate through nums2
+        // map: value in nums2  -> its next‑greater value (or –1)
+        Map<Integer, Integer> nextGreater = new HashMap<>();
+        Deque<Integer> stack = new ArrayDeque<>();   // faster than Stack
+
+        // 1️⃣  Build the map for all elements of nums2
         for (int num : nums2) {
-            // Ensure the top of the stack is smaller than the current number
+            // While the current num is the “next greater” for stack top
             while (!stack.isEmpty() && stack.peek() < num) {
-                nextGreaterMap.put(stack.pop(), num);
+                nextGreater.put(stack.pop(), num);
             }
-            // Push the current number onto the stack
             stack.push(num);
         }
-        
-        // Any elements left in the stack have no greater element
+        // Anything still on the stack has no greater element
         while (!stack.isEmpty()) {
-            nextGreaterMap.put(stack.pop(), -1);
+            nextGreater.put(stack.pop(), -1);
         }
-        
-        // Build the result array for nums1
+
+        // 2️⃣  Fill the answer for nums1 using the map
         int[] result = new int[nums1.length];
         for (int i = 0; i < nums1.length; i++) {
-            result[i] = nextGreaterMap.get(nums1[i]);
+            result[i] = nextGreater.getOrDefault(nums1[i], -1);
         }
-        
         return result;
     }
 }
