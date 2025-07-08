@@ -36,6 +36,7 @@ class Solution {
             sum = (sum + arr[i] * count) % MOD;
         }
         
+        
         return (int) sum;
     
     }
