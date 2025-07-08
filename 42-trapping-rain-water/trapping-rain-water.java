@@ -8,21 +8,19 @@ class Solution {
 
         while (left <= right) {
             if (height[left] <= height[right]) {
-                // Update leftMax and calculate water trapped at the left pointer
                 if (height[left] >= leftMax) {
                     leftMax = height[left];
                 } else {
                     waterTrapped += leftMax - height[left];
                 }
-                left++;
+                left++; // only move left pointer
             } else {
-                // Update rightMax and calculate water trapped at the right pointer
                 if (height[right] >= rightMax) {
                     rightMax = height[right];
                 } else {
                     waterTrapped += rightMax - height[right];
                 }
-                right--;
+                right--; // only move right pointer
             }
         }
 
