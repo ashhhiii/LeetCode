@@ -1,34 +1,35 @@
 class Twitter {
+    private static int timeStamp = 0;
 
-    private static int timestamp = 0;
-
-    // Store tweets of users
     private Map<Integer, List<Tweet>> tweets;
-
-    // Store following relationships
     private Map<Integer, Set<Integer>> following;
+
+    private class Tweet {
+        int tweetId;
+        int timeStamp;
+
+        Tweet(int tweetId, int timeStamp) {
+            this.tweetId = tweetId;
+            this.timeStamp = timeStamp;
+        }
+    }
 
     public Twitter() {
         tweets = new HashMap<>();
         following = new HashMap<>();
     }
 
-    // User posts a new tweet
     public void postTweet(int userId, int tweetId) {
         tweets.putIfAbsent(userId, new ArrayList<>());
-        tweets.get(userId).add(new Tweet(tweetId, timestamp++));
+        tweets.get(userId).add(new Tweet(tweetId, timeStamp++));
     }
 
-    // Get the 10 most recent tweets of the user and followed users
     public List<Integer> getNewsFeed(int userId) {
-        PriorityQueue<Tweet> minHeap = new PriorityQueue<>((a, b) -> b.timestamp - a.timestamp);
+        PriorityQueue<Tweet> minHeap = new PriorityQueue<>((a, b) -> b.timeStamp - a.timeStamp);
 
-        // Add user's tweets
         if (tweets.containsKey(userId)) {
             minHeap.addAll(tweets.get(userId));
         }
-
-        // Add followees' tweets
         if (following.containsKey(userId)) {
             for (int followeeId : following.get(userId)) {
                 if (tweets.containsKey(followeeId)) {
@@ -37,39 +38,26 @@ class Twitter {
             }
         }
 
-        // Extract top 10 tweets
         List<Integer> newsFeed = new ArrayList<>();
         int count = 0;
         while (!minHeap.isEmpty() && count < 10) {
             newsFeed.add(minHeap.poll().tweetId);
             count++;
         }
-
         return newsFeed;
     }
 
-    // Follow a user
     public void follow(int followerId, int followeeId) {
-        if (followerId == followeeId) return; // A user cannot follow himself
+        if (followerId == followeeId) {
+            return;
+        }
         following.putIfAbsent(followerId, new HashSet<>());
         following.get(followerId).add(followeeId);
     }
 
-    // Unfollow a user
     public void unfollow(int followerId, int followeeId) {
         if (following.containsKey(followerId)) {
             following.get(followerId).remove(followeeId);
-        }
-    }
-
-    // Helper class for Tweet object
-    private static class Tweet {
-        int tweetId;
-        int timestamp;
-
-        Tweet(int tweetId, int timestamp) {
-            this.tweetId = tweetId;
-            this.timestamp = timestamp;
         }
     }
 }
