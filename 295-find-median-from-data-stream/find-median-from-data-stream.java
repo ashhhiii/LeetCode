@@ -1,33 +1,33 @@
 class MedianFinder {
     private PriorityQueue<Integer> leftHalf;
-    private PriorityQueue<Integer> rightHalf;
+     private PriorityQueue<Integer> rightHalf;
 
-    public MedianFinder() { 
-        leftHalf = new PriorityQueue<>((a,b)->b-a);
-        rightHalf = new PriorityQueue<>();       
+
+    public MedianFinder() {
+        leftHalf = new PriorityQueue<>((a,b) -> b-a);
+        rightHalf = new PriorityQueue<>();
     }
     
     public void addNum(int num) {
-     if (leftHalf.isEmpty() || num <= leftHalf.peek()) {
-            leftHalf.offer(num); // Insert into Max-Heap
-        } else {
-            rightHalf.offer(num); // Insert into Min-Heap
+        if(leftHalf.isEmpty() || num < leftHalf.peek()){
+            leftHalf.offer(num);
+        }else{
+            rightHalf.offer(num);
         }
-
-        // Step 2: Balance the heaps
-        if (leftHalf.size() > rightHalf.size() + 1) {
-            rightHalf.offer(leftHalf.poll()); // Move largest from leftHalf → rightHalf
-        } else if (rightHalf.size() > leftHalf.size()) {
-            leftHalf.offer(rightHalf.poll()); // Move smallest from rightHalf → leftHalf
+        if(leftHalf.size() > rightHalf.size()+1){
+            rightHalf.offer(leftHalf.poll());
+        }else if (rightHalf.size() > leftHalf.size()) {
+            leftHalf.offer(rightHalf.poll());
         }
     }
-
-    public double findMedian() {
-        if (leftHalf.size() == rightHalf.size()) {
-            return (leftHalf.peek() + rightHalf.peek()) / 2.0; // Even case
-        } else {
-            return leftHalf.peek(); // Odd case (Max-Heap root is median)
+    
+    public double findMedian(){
+        if(leftHalf.size() == rightHalf.size()){
+            return (leftHalf.peek() + rightHalf.peek())/2.0;
+        }else{
+            return leftHalf.peek();
         }
+
     }
 }
 
