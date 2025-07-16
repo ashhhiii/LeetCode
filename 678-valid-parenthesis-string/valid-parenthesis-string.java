@@ -1,22 +1,21 @@
 class Solution {
     public boolean checkValidString(String s) {
-        int low = 0, high = 0;
-
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
+        int high = 0 , low = 0;
+        for( char c: s.toCharArray()){
+            if(c == '('){
                 low++;
                 high++;
-            } else if (c == ')') {
-                low = Math.max(0, low - 1);
+            }else if( c== ')'){
+                low  = Math.max( 0 , low-1);
                 high--;
-            } else { // '*'
-                low = Math.max(0, low - 1); // Treat as empty
-                high++; // Treat as '('
+            }else{
+                low = Math.max( 0 ,low -1);
+                high++;
             }
-
-            if (high < 0) return false; // More ')' than '('
+            if(high < 0){
+                return false;
+            }
         }
-
-        return low == 0; // Check if valid at the end
+        return low ==0;
     }
 }
