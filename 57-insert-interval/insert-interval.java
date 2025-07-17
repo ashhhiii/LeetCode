@@ -1,6 +1,6 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-       List<int[]> result = new ArrayList<>();
+          List<int[]> result = new ArrayList<>();
         int i = 0, n = intervals.length;
         
         // Add all intervals that come before newInterval
