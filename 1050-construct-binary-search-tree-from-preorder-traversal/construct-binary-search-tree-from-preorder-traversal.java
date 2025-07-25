@@ -14,9 +14,10 @@
  * }
  */
 class Solution {
-    int index=0;
+    int index = 0;
+
     public TreeNode bstFromPreorder(int[] preorder) {
-          return construct(preorder, Integer.MAX_VALUE);
+        return construct(preorder, Integer.MAX_VALUE);
     }
 
     private TreeNode construct(int[] preorder, int bound) {
@@ -25,21 +26,16 @@ class Solution {
         }
 
         TreeNode root = new TreeNode(preorder[index++]);
-
-        // All values less than root go into left subtree
         root.left = construct(preorder, root.val);
-
-        // All values greater than root go into right subtree
         root.right = construct(preorder, bound);
-
         return root;
     }
 
-    // Helper function to print BST in inorder
-    public void inorder(TreeNode root) {
-        if (root == null) return;
-        inorder(root.left);
-        System.out.print(root.val + " ");
-        inorder(root.right);
+   
+    public void inOrder(TreeNode node) {
+        if (node == null) return;
+        inOrder(node.left);
+        System.out.print(node.val + " ");
+        inOrder(node.right);
     }
 }
