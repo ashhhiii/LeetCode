@@ -5,12 +5,11 @@ class Solution {
         DisjointSet(int n) {
             parent = new int[n];
             rank = new int[n];
-            for (int i = 0; i < n; i++) parent[i] = i; // Each node is its own parent initially
+            for (int i = 0; i < n; i++) parent[i] = i;
         }
-
-        int find(int x) {
+          int find(int x) {
             if (parent[x] != x) {
-                parent[x] = find(parent[x]); // Path Compression
+                parent[x] = find(parent[x]);
             }
             return parent[x];
         }
@@ -18,7 +17,7 @@ class Solution {
         boolean union(int x, int y) {
             int rootX = find(x);
             int rootY = find(y);
-            if (rootX == rootY) return false; // Already in the same component
+            if (rootX == rootY) return false;
 
             // Union by Rank
             if (rank[rootX] > rank[rootY]) {
@@ -34,21 +33,19 @@ class Solution {
     }
 
     public int makeConnected(int n, int[][] connections) {
-        if (connections.length < n - 1) return -1; // Not enough cables
+        if (connections.length < n - 1) return -1; 
 
         DisjointSet ds = new DisjointSet(n);
-        int components = n; // Initially, each node is its own component
-        int extraCables = 0; // Count redundant edges
+        int components = n; 
+        int extraCables = 0; 
 
         for (int[] conn : connections) {
             if (!ds.union(conn[0], conn[1])) {
-                extraCables++; // This edge forms a cycle
+                extraCables++;
             } else {
-                components--; // Reduce number of components
+                components--; 
             }
         }
-
-        // We need (components - 1) cables to connect all components
         return (extraCables >= components - 1) ? (components - 1) : -1;
     }
 }
