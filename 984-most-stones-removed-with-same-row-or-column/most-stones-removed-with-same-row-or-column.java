@@ -1,11 +1,11 @@
 class Solution {
-    class DisjointSet {
+   class DisjointSet {
         Map<Integer, Integer> parent = new HashMap<>();
         Map<Integer, Integer> rank = new HashMap<>();
 
         int find(int x) {
             if (parent.get(x) != x) {
-                parent.put(x, find(parent.get(x))); // Path Compression
+                parent.put(x, find(parent.get(x))); 
             }
             return parent.get(x);
         }
@@ -36,7 +36,7 @@ class Solution {
      DisjointSet ds = new DisjointSet();
         
         for (int[] stone : stones) {
-            int row = -(stone[0] + 1); // Negative to separate rows from columns
+            int row = -(stone[0] + 1); 
             int col = stone[1];
 
             ds.add(row);
@@ -46,9 +46,10 @@ class Solution {
 
         Set<Integer> uniqueComponents = new HashSet<>();
         for (int[] stone : stones) {
-            uniqueComponents.add(ds.find(-(stone[0] + 1))); // Get unique root parent
+            uniqueComponents.add(ds.find(-(stone[0] + 1))); 
         }
 
         return stones.length - uniqueComponents.size();
-    }
+    
+}
 }
