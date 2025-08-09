@@ -5,7 +5,7 @@ class Solution {
 
         String find(String x) {
             if (!parent.get(x).equals(x)) {
-                parent.put(x, find(parent.get(x))); // Path Compression
+                parent.put(x, find(parent.get(x))); 
             }
             return parent.get(x);
         }
@@ -35,8 +35,7 @@ class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
     DisjointSet ds = new DisjointSet();
         Map<String, String> emailToName = new HashMap<>();
-        
-        // Step 1: Map Emails and Union Them
+   
         for (List<String> account : accounts) {
             String name = account.get(0);
             String firstEmail = account.get(1);
@@ -47,22 +46,20 @@ class Solution {
                 String email = account.get(i);
                 ds.add(email);
                 emailToName.put(email, name);
-                ds.union(firstEmail, email); // Union emails in the same account
+                ds.union(firstEmail, email);
             }
         }
 
-        // Step 2: Group Emails by Their Root Parent
         Map<String, List<String>> rootToEmails = new HashMap<>();
         for (String email : emailToName.keySet()) {
             String root = ds.find(email);
             rootToEmails.computeIfAbsent(root, k -> new ArrayList<>()).add(email);
         }
 
-        // Step 3: Sort Emails and Format Output
         List<List<String>> result = new ArrayList<>();
         for (String root : rootToEmails.keySet()) {
             List<String> mergedAccount = new ArrayList<>();
-            mergedAccount.add(emailToName.get(root)); // Add Name
+            mergedAccount.add(emailToName.get(root)); 
             List<String> emails = rootToEmails.get(root);
             Collections.sort(emails);
             mergedAccount.addAll(emails);
