@@ -3,8 +3,8 @@ class Solution {
        int n = nums.length;
         if (n == 0) return 0;
         
-        int[] dp = new int[n]; // Length of LIS ending at index i
-        int[] count = new int[n]; // Count of LIS ending at index i
+        int[] dp = new int[n]; 
+        int[] count = new int[n]; 
         Arrays.fill(dp, 1);
         Arrays.fill(count, 1);
         
@@ -15,9 +15,9 @@ class Solution {
                 if (nums[i] > nums[j]) {
                     if (dp[i] < dp[j] + 1) {
                         dp[i] = dp[j] + 1;
-                        count[i] = count[j]; // Reset count to count[j]
+                        count[i] = count[j]; 
                     } else if (dp[i] == dp[j] + 1) {
-                        count[i] += count[j]; // Add count[j] to count[i]
+                        count[i] += count[j]; 
                     }
                 }
             }
