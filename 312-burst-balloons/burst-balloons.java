@@ -10,8 +10,7 @@ class Solution {
         }
 
         int[][] dp = new int[n + 2][n + 2];
-
-        // length of the window
+      
         for (int len = 2; len <= n + 1; len++) {
             for (int left = 0; left <= n + 1 - len; left++) {
                 int right = left + len;
