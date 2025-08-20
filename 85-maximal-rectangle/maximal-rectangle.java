@@ -10,7 +10,7 @@ class Solution {
         int maxArea = 0;
 
         for (int i = 0; i < rows; i++) {
-            // Update the heights array for the current row
+        
             for (int j = 0; j < cols; j++) {
                 if (matrix[i][j] == '1') {
                     heights[j]++;
@@ -18,7 +18,7 @@ class Solution {
                     heights[j] = 0;
                 }
             }
-            // Calculate the maximal rectangle area for the current row
+            
             maxArea = Math.max(maxArea, largestRectangleArea(heights));
         }
 
