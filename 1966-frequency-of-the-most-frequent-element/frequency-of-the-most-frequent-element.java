@@ -7,8 +7,6 @@ class Solution {
 
         for (int r = 0; r < nums.length; r++) {
             total += nums[r];
-
-            // total operations needed to make all elements in window equal to nums[r]
             long required = (long) nums[r] * (r - l + 1);
 
             while (required - total > k) {
