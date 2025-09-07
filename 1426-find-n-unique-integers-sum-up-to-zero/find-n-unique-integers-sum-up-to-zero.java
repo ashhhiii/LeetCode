@@ -9,7 +9,7 @@ class Solution {
         }
 
         if (n % 2 != 0) {
-            result[index] = 0; // Add 0 if n is odd
+            result[index] = 0; 
         }
 
         return result;
